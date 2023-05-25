@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  color: #0f3c6e;
+}
+
+body {
+  background-color: #f5f3f3;
+}
+
+.dx-field-item-label-text {
+  color: #0f3c6e;
+}
+
+.dx-field-item-label-location-top {
+  margin-bottom: 3px;
+}
+
+.dx-texteditor.dx-editor-outlined {
+  border-color: #0f3c6e;
+}
+
+.dx-placeholder {
+  color: rgba(15, 60, 110, 0.6);
+}
+
+.dx-checkbox-icon {
+  width: 18px;
+  height: 18px;
+  border-color: #0f3c6e;
+}
+
+.customBtn {
+  background-color: #e10b13 !important;
+}
+
+.customBtn .dx-button-text {
+  color: #fff !important;
+}
+
+.customBtn-search {
+  background-color: #0f3c6e !important;
+}
+
+.customBtn-search .dx-button-text {
+  color: #fff !important;
+}
+
+.dx-toolbar-label .dx-toolbar-item-content > div {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.dx-toolbar {
+  background: #ececec;
+}
+
+.dx-overlay-content {
+  background-color: #fff !important;
+  color: #d9534f !important;
+  font-size: 13px;
+  font-weight: 600;
+}
