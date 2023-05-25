@@ -1,4 +1,4 @@
-import { Button, CheckBox, Form } from "devextreme-react";
+import { Button, Form } from "devextreme-react";
 import { SimpleItem } from "devextreme-react/form";
 import React, { useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -21,15 +21,6 @@ const Search = () => {
 
   const togglePopup = () => {
     setIsPopupVisible(!isPopupVisible);
-  };
-
-  const checkbox = (value: any) => {
-    return (
-      <div className="flex items-center gap-3 pb-3">
-        <CheckBox value={value.editorOptions.value} />
-        <p className="font-medium">Tôi đã đọc và đồng ý</p>
-      </div>
-    );
   };
 
   const renderCaptcha = useMemo(() => {
