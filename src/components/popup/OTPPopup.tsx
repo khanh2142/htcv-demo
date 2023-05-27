@@ -2,6 +2,7 @@ import { Button, Popup } from "devextreme-react";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import { toast } from "react-toastify";
+import { useClientGateApi } from "../../services/clientgate-api";
 
 const OTPPopup = ({
   isPopupVisible,
@@ -9,18 +10,47 @@ const OTPPopup = ({
   uuid,
   otpCode,
   closePopup,
+  formValue,
 }: any) => {
   const [otp, setOtp] = useState("");
   const [currentOtpCode, setCurrentOtpCode] = useState<any>("");
 
   const expireTime = 300000;
 
-  const handleSubmit = () => {
-    console.log(otp);
-    if (otp == currentOtpCode) {
-      toast.success("Đã kích hoạt bảo hành thành công!", {
+  const api = useClientGateApi();
+
+  const handleSave = async () => {
+    const resp = await api.InvCarWarranty_Active({
+      VIN: formValue.VIN,
+      CustomerPhoneNo: formValue.PhoneNo,
+      otp: otp,
+    });
+
+    if (
+      resp.data.Data._strErrCode ===
+      "ErrHTC.Inv_CarWarrantyActive_CustomerConfirmDateExist"
+    ) {
+      toast.error("Xe đã kích hoạt bảo hành!", {
         hideProgressBar: true,
       });
+      return;
+    }
+
+    if (resp.data.Data._strErrCode === "0") {
+      toast.success("Kích hoạt bảo hành thành công!", {
+        hideProgressBar: true,
+      });
+      return;
+    }
+
+    toast.error("Đã có lỗi xảy ra!", {
+      hideProgressBar: true,
+    });
+  };
+
+  const handleSubmit = () => {
+    if (otp == currentOtpCode) {
+      handleSave();
     } else {
       toast.error("Mã OTP không chính xác!", {
         hideProgressBar: true,
@@ -28,11 +58,12 @@ const OTPPopup = ({
     }
   };
 
+  console.log(otpCode, formValue);
   useEffect(() => {
     if (isPopupVisible) {
+      setOtp("");
+      setCurrentOtpCode(otpCode);
       const timer = setTimeout(() => {
-        setOtp("");
-        setCurrentOtpCode(otpCode);
         closePopup();
         toast.error("Mã OTP đã hết hạn!", {
           hideProgressBar: true,

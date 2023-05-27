@@ -2,7 +2,9 @@ import { Button, CheckBox, TextBox } from "devextreme-react";
 import React, { useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { toast } from "react-toastify";
+import { v4 } from "uuid";
 import { useClientGateApi } from "../../services/clientgate-api";
+import OTPPopup from "../popup/OTPPopup";
 
 const Warranty = () => {
   const captchaKey = "6Lf8QDAmAAAAAJJcILY1ClDbSOO1EIkmBwcMxhVB";
@@ -15,11 +17,18 @@ const Warranty = () => {
     PhoneNo: undefined,
     VIN: undefined,
     Checkbox: false,
+    f: "",
   });
 
   const [captcha, setCaptcha] = useState<string | null>(null);
 
+  const [popup, setPopup] = useState(<></>);
+
   const [isValidated, setIsValidated] = useState(false);
+
+  const togglePopup = () => {
+    setPopup(<></>);
+  };
 
   const checkbox = () => {
     return (
@@ -61,46 +70,25 @@ const Warranty = () => {
   const handleSubmit = async () => {
     setIsValidated(true);
     if (captcha && formValue.Checkbox && formValue.PhoneNo && formValue.VIN) {
-      const resp = await api.InvCarWarranty_Active({
-        VIN: formValue.VIN,
-        CustomerPhoneNo: formValue.PhoneNo,
-        otp: "123654",
+      const resp = await api.InvCarWarranty_SendOTP({
+        vin: formValue.VIN,
+        phoneno: formValue.PhoneNo,
       });
 
-      console.log(resp.data.Data._strErrCode);
-
-      if (
-        resp.data.Data._strErrCode ===
-        "ErrHTC.Inv_CarWarrantyActive_CustomerConfirmDateExist"
-      ) {
-        toast.error("Xe đã kích hoạt bảo hành!", {
-          hideProgressBar: true,
-        });
-        return;
+      if (resp.data.Data._objResult.Data.RT_OTP) {
+        setPopup(
+          <OTPPopup
+            isPopupVisible={true}
+            togglePopup={togglePopup}
+            uuid={v4()}
+            otpCode={resp.data.Data._objResult.Data.RT_OTP}
+            closePopup={togglePopup}
+            formValue={formValue}
+          />
+        );
+      } else {
+        toast.error("Đã có lỗi xảy ra!");
       }
-
-      if (resp.data.Data._strErrCode === "0") {
-        toast.success("Kích hoạt bảo hành thành công!", {
-          hideProgressBar: true,
-        });
-        return;
-      }
-
-      toast.error("Đã có lỗi xảy ra!", {
-        hideProgressBar: true,
-      });
-
-      return;
-
-      // setPopup(
-      //   <OTPPopup
-      //     isPopupVisible={true}
-      //     togglePopup={togglePopup}
-      //     uuid={v4()}
-      //     otpCode="123456"
-      //     closePopup={togglePopup}
-      //   />
-      // );
     }
   };
 
@@ -159,6 +147,8 @@ const Warranty = () => {
           onClick={handleSubmit}
         ></Button>
       </div>
+
+      {popup}
     </>
   );
 };
