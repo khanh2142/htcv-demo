@@ -1,9 +1,8 @@
 import { Button, CheckBox, TextBox } from "devextreme-react";
 import React, { useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { v4 } from "uuid";
+import { toast } from "react-toastify";
 import { useClientGateApi } from "../../services/clientgate-api";
-import OTPPopup from "../popup/OTPPopup";
 
 const Warranty = () => {
   const captchaKey = "6Lf8QDAmAAAAAJJcILY1ClDbSOO1EIkmBwcMxhVB";
@@ -69,22 +68,46 @@ const Warranty = () => {
   const handleSubmit = async () => {
     setIsValidated(true);
     if (captcha && formValue.Checkbox && formValue.PhoneNo && formValue.VIN) {
-      const resp = await api.InvCarWarranty_SendOTP({
-        vin: formValue.VIN,
-        phoneno: formValue.PhoneNo,
+      const resp = await api.InvCarWarranty_Active({
+        VIN: formValue.VIN,
+        CustomerPhoneNo: formValue.PhoneNo,
+        otp: "123654",
       });
 
-      console.log(resp.data);
+      console.log(resp.data.Data._strErrCode);
 
-      setPopup(
-        <OTPPopup
-          isPopupVisible={true}
-          togglePopup={togglePopup}
-          uuid={v4()}
-          otpCode="123456"
-          closePopup={togglePopup}
-        />
-      );
+      if (
+        resp.data.Data._strErrCode ===
+        "ErrHTC.Inv_CarWarrantyActive_CustomerConfirmDateExist"
+      ) {
+        toast.error("Xe đã kích hoạt bảo hành!", {
+          hideProgressBar: true,
+        });
+        return;
+      }
+
+      if (resp.data.Data._strErrCode === "0") {
+        toast.success("Kích hoạt bảo hành thành công!", {
+          hideProgressBar: true,
+        });
+        return;
+      }
+
+      toast.error("Đã có lỗi xảy ra!", {
+        hideProgressBar: true,
+      });
+
+      return;
+
+      // setPopup(
+      //   <OTPPopup
+      //     isPopupVisible={true}
+      //     togglePopup={togglePopup}
+      //     uuid={v4()}
+      //     otpCode="123456"
+      //     closePopup={togglePopup}
+      //   />
+      // );
     }
   };
 
