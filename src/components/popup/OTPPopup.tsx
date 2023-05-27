@@ -1,16 +1,48 @@
 import { Button, Popup } from "devextreme-react";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
+import { toast } from "react-toastify";
 
-const OTPPopup = ({ isPopupVisible, togglePopup, uuid }: any) => {
+const OTPPopup = ({
+  isPopupVisible,
+  togglePopup,
+  uuid,
+  otpCode,
+  closePopup,
+}: any) => {
   const [otp, setOtp] = useState("");
+  const [currentOtpCode, setCurrentOtpCode] = useState<any>("");
+
+  const expireTime = 300000;
 
   const handleSubmit = () => {
     console.log(otp);
+    if (otp == currentOtpCode) {
+      toast.success("Đã kích hoạt bảo hành thành công!", {
+        hideProgressBar: true,
+      });
+    } else {
+      toast.error("Mã OTP không chính xác!", {
+        hideProgressBar: true,
+      });
+    }
   };
 
   useEffect(() => {
-    setOtp("");
+    if (isPopupVisible) {
+      const timer = setTimeout(() => {
+        setOtp("");
+        setCurrentOtpCode(otpCode);
+        closePopup();
+        toast.error("Mã OTP đã hết hạn!", {
+          hideProgressBar: true,
+        });
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
   }, [uuid]);
 
   const renderPopup = () => {

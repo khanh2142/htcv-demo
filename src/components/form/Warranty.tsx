@@ -1,7 +1,9 @@
 import { Button, CheckBox, TextBox } from "devextreme-react";
 import React, { useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useQuery } from "react-query";
 import { v4 } from "uuid";
+import { useClientGateApi } from "../../services/clientgate-api";
 import OTPPopup from "../popup/OTPPopup";
 
 const Warranty = () => {
@@ -70,13 +72,24 @@ const Warranty = () => {
     }
   };
 
+  const api = useClientGateApi();
+
+  const demo = useQuery([], () =>
+    api.InvCarWarranty_Active({
+      VIN: "RLUMET7KAPN001904",
+      CustomerPhoneNo: "0937891638",
+    })
+  );
+
+  console.log(demo);
+
   return (
     <>
       <h3 className="text-center font-medium text-lg uppercase py-5">
         Kích hoạt bảo hành điện tử
       </h3>
       <div className="px-10" content={formValue.PhoneNo}>
-        <label>Số điện thoại</label>
+        <label className="font-medium">Số điện thoại</label>
         <TextBox
           placeholder="Nhập số điện thoại"
           value={formValue.PhoneNo}
@@ -92,7 +105,7 @@ const Warranty = () => {
           </p>
         )}
 
-        <label>Số khung</label>
+        <label className="font-medium">Số khung</label>
         <TextBox
           placeholder="Nhập số khung"
           value={formValue.VIN}
@@ -129,6 +142,8 @@ const Warranty = () => {
         isPopupVisible={isPopupVisible}
         togglePopup={togglePopup}
         uuid={v4()}
+        otpCode="123456"
+        closePopup={() => setIsPopupVisible(false)}
       />
     </>
   );
