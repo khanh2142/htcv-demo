@@ -6,7 +6,7 @@ export const useClientGate = () => {
   const api = axios.create({
     baseURL: import.meta.env.VITE_API_ENTRY_CENTER_GATE_URL,
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Access-Control-Allow-Headers": "Content-Type",
       "Content-Type": "application/x-www-form-urlencoded",
       AppAgent: import.meta.env.VITE_AGENT,
       GwUserCode: import.meta.env.VITE_GW_USER_CODE,
@@ -17,9 +17,10 @@ export const useClientGate = () => {
       AppTid: Tid(),
       LanguageCode: "en-US",
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": "true",
-      "Access-Control-Allow-Methods": "GET, DELETE, HEAD, OPTIONS",
+      "Access-Control-Allow-Credentials": true,
+      "Access-Control-Allow-Methods": "GET, DELETE, HEAD, OPTIONS, POST",
     },
+    withCredentials: false,
   });
 
   return api;

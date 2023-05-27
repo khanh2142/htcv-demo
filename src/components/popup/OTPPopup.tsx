@@ -37,7 +37,7 @@ const OTPPopup = ({
         toast.error("Mã OTP đã hết hạn!", {
           hideProgressBar: true,
         });
-      }, 5000);
+      }, expireTime);
 
       return () => {
         clearTimeout(timer);

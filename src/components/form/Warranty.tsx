@@ -1,7 +1,6 @@
 import { Button, CheckBox, TextBox } from "devextreme-react";
 import React, { useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useQuery } from "react-query";
 import { v4 } from "uuid";
 import { useClientGateApi } from "../../services/clientgate-api";
 import OTPPopup from "../popup/OTPPopup";
@@ -10,6 +9,8 @@ const Warranty = () => {
   const captchaKey = "6Lf8QDAmAAAAAJJcILY1ClDbSOO1EIkmBwcMxhVB";
 
   const captchaRef: any = React.createRef();
+
+  const api = useClientGateApi();
 
   const [formValue, setFormValue] = useState({
     PhoneNo: undefined,
@@ -20,12 +21,12 @@ const Warranty = () => {
 
   const [captcha, setCaptcha] = useState<string | null>(null);
 
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [popup, setPopup] = useState(<></>);
 
   const [isValidated, setIsValidated] = useState(false);
 
   const togglePopup = () => {
-    setIsPopupVisible(!isPopupVisible);
+    setPopup(<></>);
   };
 
   const checkbox = () => {
@@ -65,23 +66,27 @@ const Warranty = () => {
     );
   }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsValidated(true);
     if (captcha && formValue.Checkbox && formValue.PhoneNo && formValue.VIN) {
-      setIsPopupVisible(true);
+      const resp = await api.InvCarWarranty_SendOTP({
+        vin: formValue.VIN,
+        phoneno: formValue.PhoneNo,
+      });
+
+      console.log(resp.data);
+
+      setPopup(
+        <OTPPopup
+          isPopupVisible={true}
+          togglePopup={togglePopup}
+          uuid={v4()}
+          otpCode="123456"
+          closePopup={togglePopup}
+        />
+      );
     }
   };
-
-  const api = useClientGateApi();
-
-  const demo = useQuery([], () =>
-    api.InvCarWarranty_Active({
-      VIN: "RLUMET7KAPN001904",
-      CustomerPhoneNo: "0937891638",
-    })
-  );
-
-  console.log(demo);
 
   return (
     <>
@@ -138,13 +143,8 @@ const Warranty = () => {
           onClick={handleSubmit}
         ></Button>
       </div>
-      <OTPPopup
-        isPopupVisible={isPopupVisible}
-        togglePopup={togglePopup}
-        uuid={v4()}
-        otpCode="123456"
-        closePopup={() => setIsPopupVisible(false)}
-      />
+
+      {popup}
     </>
   );
 };

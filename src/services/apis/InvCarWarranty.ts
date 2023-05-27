@@ -7,5 +7,10 @@ export const InvCarWarrantyApi = (apiBase: AxiosInstance) => {
         ...params,
       });
     },
+    InvCarWarranty_SendOTP: async (params: any) => {
+      return await apiBase.post("Message/SendOTP", {
+        ...params,
+      });
+    },
   };
 };
