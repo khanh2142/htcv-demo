@@ -15,12 +15,9 @@ const Warranty = () => {
     PhoneNo: undefined,
     VIN: undefined,
     Checkbox: false,
-    f: "",
   });
 
   const [captcha, setCaptcha] = useState<string | null>(null);
-
-  const [popup, setPopup] = useState(<></>);
 
   const [isValidated, setIsValidated] = useState(false);
 
@@ -162,8 +159,6 @@ const Warranty = () => {
           onClick={handleSubmit}
         ></Button>
       </div>
-
-      {popup}
     </>
   );
 };
