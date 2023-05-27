@@ -24,10 +24,6 @@ const Warranty = () => {
 
   const [isValidated, setIsValidated] = useState(false);
 
-  const togglePopup = () => {
-    setPopup(<></>);
-  };
-
   const checkbox = () => {
     return (
       <>
