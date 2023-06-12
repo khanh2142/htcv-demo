@@ -1,11 +1,11 @@
 import { Button, CheckBox, TextBox } from "devextreme-react";
+import { useSetAtom } from "jotai";
 import React, { useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { toast } from "react-toastify";
 import { v4 } from "uuid";
 import { useClientGateApi } from "../../services/clientgate-api";
 import OTPPopup from "../popup/OTPPopup";
-
+import { showErrorAtom } from "../store/error";
 const Warranty = () => {
   const captchaKey = "6Lf8QDAmAAAAAJJcILY1ClDbSOO1EIkmBwcMxhVB";
 
@@ -30,6 +30,7 @@ const Warranty = () => {
     setPopup(<></>);
   };
 
+  const showError = useSetAtom(showErrorAtom);
   const checkbox = () => {
     return (
       <>
@@ -74,8 +75,8 @@ const Warranty = () => {
         vin: formValue.VIN,
         phoneno: formValue.PhoneNo,
       });
-
-      if (resp?.data?.Data?._objResult?.Data?.RT_OTP) {
+      console.log("resp ", resp);
+      if (resp.data.Data._objResult?.Data?.RT_OTP) {
         setPopup(
           <OTPPopup
             isPopupVisible={true}
@@ -87,8 +88,12 @@ const Warranty = () => {
           />
         );
       } else {
-        toast.error("Đã có lỗi xảy ra!", {
-          hideProgressBar: true,
+        console.log("error");
+        showError({
+          message: resp.data.Data._strErrCode,
+          debugInfo: resp.data.Data._excResult,
+          errorInfo:
+            resp.data.Data._excResult.InnerException.Exception.ExceptionMethod,
         });
       }
     }

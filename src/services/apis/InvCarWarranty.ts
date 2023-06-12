@@ -12,5 +12,10 @@ export const InvCarWarrantyApi = (apiBase: AxiosInstance) => {
         ...params,
       });
     },
+    InvCarWarranty_Search: async (params: any) => {
+      return await apiBase.post("InvCarWarranty/Search", {
+        ...params,
+      });
+    },
   };
 };

@@ -10,7 +10,8 @@ body {
   background-color: #f5f3f3;
 }
 
-.dx-field-item-label-text {
+.dx-field-item-label-text,
+.dx-field-item-label {
   color: #0f3c6e;
 }
 
@@ -62,4 +63,48 @@ body {
   color: #d9534f !important;
   font-size: 13px;
   font-weight: 600;
+}
+
+.otp-popup {
+  text-align: center;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  margin: 15px 0;
+  background-color: black;
+}
+
+.form-search .dx-field-item {
+  /* padding-top: 10px !important; */
+  /* padding-bottom: 10px !important; */
+  padding: 0 !important;
+}
+
+.form-search .dx-texteditor-input {
+  padding: 5px;
+}
+
+.form-search .dx-texteditor.dx-editor-outlined {
+  border: none !important;
+}
+
+.form-search .dx-field-item .dx-texteditor-input {
+  border: none;
+}
+
+.customBtn-search {
+  color: white !important;
+}
+
+/* .dx-layout-manager , .dx-texteditor-input */
+
+.dx-popup-content {
+  text-align: center;
+}
+
+.text-left,
+.dx-field-item-label {
+  text-align: left !important;
 }
