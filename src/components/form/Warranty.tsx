@@ -75,7 +75,7 @@ const Warranty = () => {
         phoneno: formValue.PhoneNo,
       });
 
-      if (resp.data.Data._objResult.Data.RT_OTP) {
+      if (resp?.data?.Data?._objResult?.Data?.RT_OTP) {
         setPopup(
           <OTPPopup
             isPopupVisible={true}
@@ -87,7 +87,9 @@ const Warranty = () => {
           />
         );
       } else {
-        toast.error("Đã có lỗi xảy ra!");
+        toast.error("Đã có lỗi xảy ra!", {
+          hideProgressBar: true,
+        });
       }
     }
   };
