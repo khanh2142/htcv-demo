@@ -63,6 +63,7 @@ const Warranty = () => {
             setCaptcha(value);
           }}
           hl="vi"
+          style={{ width: "100%" }}
         />
       </>
     );
@@ -101,10 +102,10 @@ const Warranty = () => {
 
   return (
     <>
-      <h3 className="text-center font-medium text-lg uppercase py-5">
+      <h3 className="text-center font-medium text-base sm:text-lg uppercase py-5">
         Kích hoạt bảo hành điện tử
       </h3>
-      <div className="px-10" content={formValue.PhoneNo}>
+      <div className="px-3 sm:px-10" content={formValue.PhoneNo}>
         <label className="font-medium">Số điện thoại</label>
         <TextBox
           placeholder="Nhập số điện thoại"

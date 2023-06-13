@@ -100,10 +100,10 @@ const Search = () => {
 
   return (
     <>
-      <h3 className="text-center font-medium text-lg uppercase py-5">
+      <h3 className="text-center text-base sm:text-lg font-medium uppercase py-5">
         Tra cứu thông tin xe
       </h3>
-      <div className="px-10" content={formValue.PhoneNo}>
+      <div className="px-3 sm:px-10" content={formValue.PhoneNo}>
         <label className="font-medium">Số điện thoại</label>
         <TextBox
           placeholder="Nhập số điện thoại"
