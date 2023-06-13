@@ -58,7 +58,7 @@ const Warranty = () => {
         <ReCAPTCHA
           sitekey={captchaKey}
           ref={captchaRef}
-          className="mt-5"
+          className="mt-5 w-full"
           onChange={(value: any) => {
             setCaptcha(value);
           }}

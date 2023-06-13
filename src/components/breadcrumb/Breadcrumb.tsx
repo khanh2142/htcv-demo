@@ -2,7 +2,7 @@ const Breadcrumb = () => {
   const title = document.title;
 
   return (
-    <div className="container mx-auto flex gap-2 py-3">
+    <div className="container mx-auto flex gap-2 py-3 px-2">
       <span>
         <i className="fas fa-home"></i>
       </span>

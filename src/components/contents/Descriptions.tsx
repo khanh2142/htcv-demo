@@ -1,6 +1,6 @@
 const Descriptions = () => {
   return (
-    <>
+    <div className="px-3">
       <h3 className="text-center font-medium uppercase py-5">
         Thông tin chính sách bảo hành
       </h3>
@@ -47,7 +47,7 @@ const Descriptions = () => {
         xe. Bên cạnh đó, quý khách có thể liên lạc với HTV theo số điện thoại
         1900 56 1212 để nhận được sự trợ giúp kịp thời.
       </p>
-    </>
+    </div>
   );
 };
 
