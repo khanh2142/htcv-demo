@@ -1,6 +1,6 @@
 import { Form, Popup } from "devextreme-react";
 import { SimpleItem } from "devextreme-react/form";
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const SearchPopup = ({ formData, uuid, isPopupVisible, togglePopup }: any) => {
   const [formValue, setFormValue] = useState({
@@ -69,7 +69,6 @@ const SearchPopup = ({ formData, uuid, isPopupVisible, togglePopup }: any) => {
             cssClass="text-[#0f3c6e] font-medium py-4"
           ></SimpleItem>
           <SimpleItem
-            
             dataField="VIN"
             label={{ text: "Số khung", showColon: false }}
             cssClass="text-[#0f3c6e] font-medium py-4"

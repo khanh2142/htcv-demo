@@ -27,7 +27,7 @@ const Search = () => {
     setCurrentCode(<></>);
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async () => {
     setIsValidated(true);
     // e.preventDefault();
     setLoading(true);

@@ -1,14 +1,12 @@
-import { logger } from "../logger";
-import { ErrorMessage, clearErrorAtom, useErrorStore } from "./../store/error";
 import { ScrollView } from "devextreme-react";
 import { Popup, Position, ToolbarItem } from "devextreme-react/popup";
 import { useSetAtom } from "jotai";
+import { ErrorMessage, clearErrorAtom, useErrorStore } from "./../store/error";
 
-import { useState } from "react";
 import Button from "devextreme-react/button";
+import { useState } from "react";
 
 const ErrorDetail = ({ error }: { error: ErrorMessage }) => {
-  logger.debug("error:", error);
   return (
     <div>
       {!!error.debugInfo && (
@@ -70,7 +68,7 @@ export default function Error() {
 
   return (
     <Popup
-      titleRender={(item: any) => (
+      titleRender={() => (
         <div className="error-title">
           <Button
             icon={"/images/icons/warning.svg"}
