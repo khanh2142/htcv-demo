@@ -57,6 +57,7 @@ const OTPPopup = ({
   const handleSubmit = async () => {
     if (flagSearch) {
       if (otp == currentOtpCode) {
+        // if (true) {
         setPopup(
           <SearchPopup
             formData={dataSearch}
