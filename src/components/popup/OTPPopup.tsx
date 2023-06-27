@@ -85,9 +85,9 @@ const OTPPopup = ({
     }
   };
 
-  console.log("currentOtp ", currentOtpCode, "otp ", otp);
+  // console.log("currentOtp ", currentOtpCode, "otp ", otp);
 
-  console.log(otpCode, formValue);
+  // console.log(otpCode, formValue);
   useEffect(() => {
     if (isPopupVisible) {
       setOtp("");
