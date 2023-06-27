@@ -1,4 +1,6 @@
+import { useSetAtom } from "jotai";
 import { useState } from "react";
+import { titleAtom } from "../../App";
 
 const Tabs = ({ handleChange }: any) => {
   const listNav = [
@@ -13,6 +15,8 @@ const Tabs = ({ handleChange }: any) => {
   ];
 
   const [active, setActive] = useState<number>(1);
+
+  const setTitle = useSetAtom(titleAtom);
 
   return (
     <div className="flex flex-col gap-3 col-span-4">
@@ -39,7 +43,7 @@ const Tabs = ({ handleChange }: any) => {
               onClick={() => {
                 setActive(item.id);
                 handleChange(item.id);
-                document.title = item.content;
+                setTitle(item.content);
               }}
             >
               {item.content}
