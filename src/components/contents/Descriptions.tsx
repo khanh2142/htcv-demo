@@ -314,9 +314,6 @@ const Descriptions = () => {
           <li>
             • Các đường ống: ống cao su, ống cứng (hệ thống hơi, dầu, nước ...).
           </li>
-          <li>
-            • Các đường ống: ống cao su, ống cứng (hệ thống hơi, dầu, nước ...).
-          </li>
           <li>• Các bộ chia hơi, bầu phanh và các đầu nối.</li>
           <li>• Cao su chân máy, chân hộp số.</li>
           <li>• Bộ kích công suất động cơ (PTO).</li>
