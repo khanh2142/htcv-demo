@@ -76,7 +76,7 @@ const Warranty = () => {
         vin: formValue.VIN,
         phoneno: formValue.PhoneNo,
       });
-      console.log("resp ", resp);
+      // console.log("resp ", resp);
       if (resp.data.Data._objResult?.Data?.RT_OTP) {
         setPopup(
           <OTPPopup
@@ -89,7 +89,7 @@ const Warranty = () => {
           />
         );
       } else {
-        console.log("error");
+        // console.log("error");
         showError({
           message: resp.data.Data._strErrCode,
           debugInfo: resp.data.Data._excResult,
