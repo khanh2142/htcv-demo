@@ -78,14 +78,14 @@ const SearchPopup = ({ formData, uuid, isPopupVisible, togglePopup }: any) => {
             label={{ text: "Ngày đăng ký bảo hành", showColon: false }}
             cssClass="text-[#0f3c6e] font-medium py-4"
           ></SimpleItem>
-          <SimpleItem
+          {/* <SimpleItem
             dataField="HTCVDateExpired"
             label={{ text: "Thời hàn bảo hành HTCV", showColon: false }}
             cssClass="text-[#0f3c6e] font-medium py-4"
-          ></SimpleItem>
+          ></SimpleItem> */}
           <SimpleItem
             dataField="DealerDateExpired"
-            label={{ text: "Thời hạn bảo hành đại lý", showColon: false }}
+            label={{ text: "Thời hạn bảo hành", showColon: false }}
             cssClass="text-[#0f3c6e] font-medium py-4"
           ></SimpleItem>
         </Form>

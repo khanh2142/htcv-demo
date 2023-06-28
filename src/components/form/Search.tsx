@@ -104,7 +104,9 @@ const Search = () => {
         Tra cứu thông tin xe
       </h3>
       <div className="px-3 sm:px-10" content={formValue.PhoneNo}>
-        <label className="font-medium">Số điện thoại</label>
+        <label className="font-medium">
+          Số điện thoại <span className="text-red-500">*</span>
+        </label>
         <TextBox
           placeholder="Nhập số điện thoại"
           value={formValue.PhoneNo}
@@ -120,7 +122,9 @@ const Search = () => {
           </p>
         )}
 
-        <label className="font-medium">Số khung</label>
+        <label className="font-medium">
+          Số khung <span className="text-red-500">*</span>
+        </label>
         <TextBox
           placeholder="Nhập số khung"
           value={formValue.VIN}
