@@ -1,11 +1,11 @@
 import { Button, CheckBox, TextBox } from "devextreme-react";
-import { useSetAtom } from "jotai";
 import React, { useMemo, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { toast } from "react-toastify";
 import { v4 } from "uuid";
 import { useClientGateApi } from "../../services/clientgate-api";
+import Descriptions from "../contents/Descriptions";
 import OTPPopup from "../popup/OTPPopup";
-import { showErrorAtom } from "../store/error";
 const Warranty = () => {
   const captchaKey = "6Lf8QDAmAAAAAJJcILY1ClDbSOO1EIkmBwcMxhVB";
 
@@ -30,7 +30,6 @@ const Warranty = () => {
     setPopup(<></>);
   };
 
-  const showError = useSetAtom(showErrorAtom);
   const checkbox = () => {
     return (
       <>
@@ -72,30 +71,73 @@ const Warranty = () => {
   const handleSubmit = async () => {
     setIsValidated(true);
     if (captcha && formValue.Checkbox && formValue.PhoneNo && formValue.VIN) {
-      const resp = await api.InvCarWarranty_SendOTP({
-        vin: formValue.VIN,
-        phoneno: formValue.PhoneNo,
+      const respData = await api.InvCarWarranty_Search({
+        VIN: formValue.VIN,
+        CustomerPhoneNo: "",
       });
-      // console.log("resp ", resp);
-      if (resp.data.Data._objResult?.Data?.RT_OTP) {
-        setPopup(
-          <OTPPopup
-            isPopupVisible={true}
-            togglePopup={togglePopup}
-            uuid={v4()}
-            otpCode={resp.data.Data._objResult.Data.RT_OTP}
-            closePopup={togglePopup}
-            formValue={formValue}
-          />
-        );
+
+      const isSuccess = respData?.data?.Data?._objResult?.Success ?? false;
+      const isValidCarWarranty =
+        respData?.data?.Data?._objResult?.Data?.Lst_Inv_CarWarranty;
+
+      if (isSuccess && isValidCarWarranty && isValidCarWarranty[0]) {
+        if (
+          isValidCarWarranty[0]?.VIN == formValue.VIN &&
+          isValidCarWarranty[0]?.CustomerPhoneNo == formValue?.PhoneNo
+        ) {
+          if (isValidCarWarranty[0]?.CustomerConfirmDate) {
+            toast.error(
+              `Xe đã kích hoạt bảo hành ngày ${isValidCarWarranty[0]?.CustomerConfirmDate}`,
+              {
+                hideProgressBar: true,
+              }
+            );
+            return;
+          } else {
+            const resp = await api.InvCarWarranty_SendOTP({
+              vin: formValue.VIN,
+              phoneno: formValue.PhoneNo,
+            });
+
+            if (
+              resp?.data?.Data?._objResult &&
+              resp?.data?.Data?._objResult != null &&
+              resp.data.Data._objResult?.Data?.RT_OTP
+            ) {
+              setPopup(
+                <OTPPopup
+                  isPopupVisible={true}
+                  togglePopup={togglePopup}
+                  uuid={v4()}
+                  otpCode={resp.data.Data._objResult.Data.RT_OTP}
+                  closePopup={togglePopup}
+                  formValue={formValue}
+                />
+              );
+            } else {
+              toast.error(
+                "Đã xảy ra lỗi! Vui lòng kiểm tra lại số khung hoặc số điện thoại",
+                {
+                  hideProgressBar: true,
+                }
+              );
+              return;
+            }
+          }
+        } else {
+          toast.error(`Số điện thoại hoặc VIN không chính xác!`, {
+            hideProgressBar: true,
+          });
+          return;
+        }
       } else {
-        // console.log("error");
-        showError({
-          message: resp.data.Data._strErrCode,
-          debugInfo: resp.data.Data._excResult,
-          errorInfo:
-            resp.data.Data._excResult.InnerException.Exception.ExceptionMethod,
-        });
+        toast.error(
+          "Đã xảy ra lỗi! Vui lòng kiểm tra lại số khung hoặc số điện thoại",
+          {
+            hideProgressBar: true,
+          }
+        );
+        return;
       }
     }
   };
@@ -141,6 +183,16 @@ const Warranty = () => {
             Vui lòng nhập số khung!
           </p>
         )}
+
+        <div
+          className="h-[350px] overflow-scroll overflow-x-hidden my-[20px] pb-2"
+          style={{
+            boxShadow:
+              "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
+          }}
+        >
+          <Descriptions />
+        </div>
 
         {checkbox()}
 

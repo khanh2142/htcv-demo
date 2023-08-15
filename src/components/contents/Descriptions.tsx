@@ -40,115 +40,51 @@ const Descriptions = () => {
       </p>
       <p className="mt-5 font-[500]">
         Một lần nữa chúng tôi xin chúc mừng bạn và hy vọng rằng bạn sẽ có được
-        cảm giác thú vị khi sử dụng xe. Bất cứ khi nào không hài lòng với chất
-        lượng dịch vụ hay thấy xe có dấu hiệu trục trặc thì bạn hãy liên lạc
-        ngay với những người quản lý của Đại lý, nơi bạn mua xe. Bên cạnh đó,
-        bạn có thể liên lạc với HTCV theo số điện thoại{" "}
-        <strong>1900 56 12 12</strong> để nhận được sự trợ giúp kịp thời.
+        trải nghiệm thú vị khi sử dụng xe. Bất cứ khi nào không hài lòng với
+        chất lượng dịch vụ hay thấy xe có dấu hiệu trục trặc thì bạn hãy liên
+        lạc ngay với những người quản lý của Đại lý, nơi bạn mua xe. Bên cạnh
+        đó, bạn có thể liên lạc với HTCV theo số điện thoại{" "}
+        <strong>1900 56 12 12 Nhánh 2</strong> để nhận được sự trợ giúp kịp
+        thời.
       </p>
-      <div className="w-full uppercase text-center bg-slate-600 text-white mt-10 py-2">
-        Tôi đã kiểm tra các phần sau
-      </div>
-      <div className="lg:grid lg:grid-cols-3">
-        <div className="grid grid-rows-4">
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Giải thích các hạng mục kiểm tra trước khi giao xe
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Bàn giao các giấy tờ để đăng ký xe
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Giải thích chính sách bảo hành của HTCV (và các chính sách bảo
-              hành sản phẩm thích hợp khác)
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Giới thiệu lịch bảo dưỡng thích hợp
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-rows-4">
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Giới thiệu với khách hàng xưởng dịch vụ và Trưởng phòng dịch vụ
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">Hướng dẫn lái xe an toàn</div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">Khoang động cơ và mức dầu</div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Khoang chứa đồ, lốp dự phòng và các dụng cụ sửa chữa
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-rows-4">
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Sử dụng nhiên liệu Diezel DO 0.001 S-V
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Hoạt động của bảng đồng hồ và các chức năng điều khiển bên trong
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">
-              Hướng dẫn sử dụng xe, các tính năng của xe và các lưu ý cần thiết
-            </div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-          <div className="grid grid-cols-12 border-[1px] border-black border-solid">
-            <div className="col-span-10 p-2">Thiết bị bên ngoài</div>
-            <div className="col-span-2 flex items-center justify-center border-l-[1px] border-black border-solid">
-              <div className="h-6 w-6 bg-white rounded border-[1px] border-black border-solid"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h3 className="text-center font-bold uppercase py-5">
+        Kiểm tra trước khi giao xe
+      </h3>
+
+      <p className="mt-2 font-[500]">
+        Khách hàng kiểm tra và xác nhận các thông tin sau
+      </p>
+
+      <p className="mt-2 font-[500]">
+        Đại lý đã giải thích các hạng mục kiểm tra trước khi giao xe bao gồm:
+      </p>
+
+      <p className="mt-2 font-[500]">+) Bàn giao các giấy tờ đăng ký xe</p>
+
+      <p className="mt-2 font-[500]">
+        +) Giải thích chính sách bảo hành của HTCV( và các chính sách bảo hành
+        sản phẩm thích hợp khác)
+      </p>
+
+      <p className="mt-2 font-[500]">+) Giới thiệu lịch bảo dưỡng thích hợp</p>
+
+      <p className="mt-2 font-[500]">
+        +) Giới thiệu với khách hàng xưởng dịch vụ và Trưởng phòng dịch vụ
+      </p>
+
+      <p className="mt-2 font-[500]">+) Khoang động cơ và mức dầu.</p>
+
+      <p className="mt-2 font-[500]">
+        +) Khoang chứa đồ, lốp dự phòng và các dụng cụ sửa chữa
+      </p>
+
+      <p className="mt-2 font-[500]">
+        +) Sử dụng nhiên liệu Diezel DO 0.001 S-V
+      </p>
+
+      <p className="mt-2 font-[500]">+) Thiết bị bên ngoài. </p>
+
       <h3 className="text-center font-bold uppercase py-5">
         Trách nhiệm của chủ xe
       </h3>

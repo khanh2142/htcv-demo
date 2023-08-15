@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 const SearchPopup = ({ formData, uuid, isPopupVisible, togglePopup }: any) => {
   const [formValue, setFormValue] = useState({
+    ModelName: "",
     VIN: "",
     PlateNo: "",
     ModelCode: "",
@@ -53,7 +54,7 @@ const SearchPopup = ({ formData, uuid, isPopupVisible, togglePopup }: any) => {
           labelMode="outside"
           className="form-search w-full"
         >
-          <SimpleItem
+          {/* <SimpleItem
             dataField="CustomerName"
             label={{ text: "Tên khách hàng", showColon: false }}
             cssClass="text-[#0f3c6e] font-medium py-4"
@@ -67,6 +68,11 @@ const SearchPopup = ({ formData, uuid, isPopupVisible, togglePopup }: any) => {
             dataField="CustomerPhoneNo"
             label={{ text: "Số điện thoại", showColon: false }}
             cssClass="text-[#0f3c6e] font-medium py-4"
+          ></SimpleItem> */}
+          <SimpleItem
+            dataField="ModelName"
+            label={{ text: "Tên model", showColon: false }}
+            cssClass="text-[#0f3c6e] font-medium py-4"
           ></SimpleItem>
           <SimpleItem
             dataField="VIN"
@@ -74,7 +80,7 @@ const SearchPopup = ({ formData, uuid, isPopupVisible, togglePopup }: any) => {
             cssClass="text-[#0f3c6e] font-medium py-4"
           ></SimpleItem>
           <SimpleItem
-            dataField="CustomerConfirmDate"
+            dataField="WarrantyDate"
             label={{ text: "Ngày đăng ký bảo hành", showColon: false }}
             cssClass="text-[#0f3c6e] font-medium py-4"
           ></SimpleItem>
@@ -150,7 +156,7 @@ const SearchPopup = ({ formData, uuid, isPopupVisible, togglePopup }: any) => {
       width={700}
       height={600}
       resizeEnabled={false}
-      title="Thông tin khách hàng và xe"
+      title="Thông tin xe bảo hành"
     >
       <ScrollView showScrollbar="always" width="100%" height="100%">
         {renderPopup()}

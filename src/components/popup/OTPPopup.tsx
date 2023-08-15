@@ -34,11 +34,14 @@ const OTPPopup = ({
 
     if (
       resp.data.Data._strErrCode ===
-      "ErrHTC.Inv_CarWarrantyActive_CustomerConfirmDateExist"
+      "ErrHTC.Inv_CarWarrantyActive_VINAndCustomerPhoneNoNotFound"
     ) {
-      toast.error("Xe đã kích hoạt bảo hành!", {
-        hideProgressBar: true,
-      });
+      toast.error(
+        "Số điện thoại và VIN không tìm thấy trong kho xe bảo hành!",
+        {
+          hideProgressBar: true,
+        }
+      );
       return;
     }
 
@@ -49,9 +52,9 @@ const OTPPopup = ({
       return;
     }
 
-    toast.error(resp.data.Data._strErrCode, {
-      hideProgressBar: true,
-    });
+    // toast.error(resp.data.Data._strErrCode, {
+    //   hideProgressBar: true,
+    // });
   };
 
   const handleSubmit = async () => {
@@ -68,7 +71,9 @@ const OTPPopup = ({
           />
         );
       } else {
-        toast.error("Mã OTP không chính xác!");
+        toast.error("Mã OTP không chính xác!", {
+          hideProgressBar: true,
+        });
       }
     } else {
       if (confirm("Bạn có muốn kích hoạt bảo hành xe không")) {
@@ -85,9 +90,6 @@ const OTPPopup = ({
     }
   };
 
-  // console.log("currentOtp ", currentOtpCode, "otp ", otp);
-
-  // console.log(otpCode, formValue);
   useEffect(() => {
     if (isPopupVisible) {
       setOtp("");
@@ -109,7 +111,9 @@ const OTPPopup = ({
     // e.preventDefault();
     const resp = await api.InvCarWarranty_SendOTP(formValue);
     if (resp.data.Data?._objResult?.Success) {
-      toast.success("Gửi lại thành công");
+      toast.success("Gửi lại thành công", {
+        hideProgressBar: true,
+      });
       setCurrentOtpCode(resp.data.Data?._objResult?.Data.RT_OTP);
       return;
     } else {

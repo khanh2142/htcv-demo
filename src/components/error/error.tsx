@@ -55,6 +55,7 @@ export default function Error() {
   };
 
   const { errors } = useErrorStore();
+
   const clear = useSetAtom(clearErrorAtom);
   const hasErrors = !!errors && errors.length > 0;
 

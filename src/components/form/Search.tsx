@@ -1,26 +1,21 @@
 import { Button, TextBox } from "devextreme-react";
 import { useSetAtom } from "jotai";
-import React, { useMemo, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import { v4 } from "uuid";
 import { useClientGateApi } from "../../services/clientgate-api";
-import OTPPopup from "../popup/OTPPopup";
+import Descriptions from "../contents/Descriptions";
+import SearchPopup from "../popup/SearchPopup";
 import { showErrorAtom } from "../store/error";
 
 const Search = () => {
-  const captchaKey = "6Lf8QDAmAAAAAJJcILY1ClDbSOO1EIkmBwcMxhVB";
   const api = useClientGateApi();
-  const captchaRef: any = React.createRef();
   const [currentCode, setCurrentCode] = useState(<></>);
   const [loading, setLoading] = useState(false);
   const [isValidated, setIsValidated] = useState(false);
-  const [captcha, setCaptcha] = useState<string | null>(null);
   const showError = useSetAtom(showErrorAtom);
   const [formValue, setFormValue] = useState({
-    PhoneNo: undefined,
     VIN: undefined,
-    f: "",
   });
 
   const togglePopup = () => {
@@ -33,45 +28,33 @@ const Search = () => {
     setLoading(true);
     const resp = await api.InvCarWarranty_Search({
       VIN: formValue.VIN,
-      CustomerPhoneNo: formValue.PhoneNo,
+      CustomerPhoneNo: "",
     });
+
     if (resp.data.Data._objResult?.Success) {
       const dataValue = resp.data.Data._objResult.Data.Lst_Inv_CarWarranty;
       if (dataValue) {
         if (dataValue?.length) {
+          setCurrentCode(
+            <SearchPopup
+              formData={dataValue}
+              uuid={v4()}
+              isPopupVisible={currentCode}
+              togglePopup={togglePopup}
+            />
+          );
           setLoading(false);
-          const sendOtp = await api.InvCarWarranty_SendOTP(formValue);
-          if (sendOtp.data.Data._objResult?.Success) {
-            setCurrentCode(
-              <OTPPopup
-                isPopupVisible={true}
-                togglePopup={togglePopup}
-                uuid={v4()}
-                otpCode={sendOtp.data.Data._objResult.Data.RT_OTP}
-                closePopup={togglePopup}
-                formValue={formValue}
-                flagSearch={true}
-                dataSearch={dataValue}
-              />
-            );
-          } else {
-            showError({
-              message: sendOtp.data.Data._strErrCode,
-              debugInfo: sendOtp.data.Data._excResult,
-              errorInfo:
-                sendOtp.data.Data._excResult.InnerException.Exception
-                  .ExceptionMethod,
-            });
-          }
-          return;
         } else {
-          toast.error("Không có dữ liệu nào cả");
+          toast.error("Không có dữ liệu nào cả", {
+            hideProgressBar: true,
+          });
           setLoading(false);
         }
       } else {
-        toast.error("Không có dữ liệu");
+        toast.error("Không có dữ liệu", {
+          hideProgressBar: true,
+        });
         setLoading(false);
-        return;
       }
     } else {
       showError({
@@ -80,48 +63,16 @@ const Search = () => {
         errorInfo:
           resp.data.Data._excResult.InnerException.Exception.ExceptionMethod,
       });
+      setLoading(false);
     }
   };
-  const renderCaptcha = useMemo(() => {
-    return (
-      <>
-        <ReCAPTCHA
-          sitekey={captchaKey}
-          ref={captchaRef}
-          className="mt-5"
-          onChange={(value: any) => {
-            setCaptcha(value);
-          }}
-          hl="vi"
-        />
-      </>
-    );
-  }, []);
 
   return (
     <>
       <h3 className="text-center text-base sm:text-lg font-medium uppercase py-5">
         Tra cứu thông tin xe
       </h3>
-      <div className="px-3 sm:px-10" content={formValue.PhoneNo}>
-        <label className="font-medium">
-          Số điện thoại <span className="text-red-500">*</span>
-        </label>
-        <TextBox
-          placeholder="Nhập số điện thoại"
-          value={formValue.PhoneNo}
-          onValueChange={(value: any) =>
-            setFormValue({ ...formValue, PhoneNo: value })
-          }
-          className="mt-2 mb-3"
-        />
-
-        {!formValue.PhoneNo && isValidated && (
-          <p className="text-[0.85em] font-medium text-[#d9534f] pl-1">
-            Vui lòng nhập số điện thoại!
-          </p>
-        )}
-
+      <div className="px-3 sm:px-10">
         <label className="font-medium">
           Số khung <span className="text-red-500">*</span>
         </label>
@@ -140,12 +91,6 @@ const Search = () => {
           </p>
         )}
 
-        {renderCaptcha}
-        {(!captcha || captcha == null) && isValidated && (
-          <p className="text-[0.85em] font-medium text-[#d9534f] pl-1">
-            Vui lòng xác thực captcha!
-          </p>
-        )}
         <Button
           disabled={loading}
           className="text-white items-center justify-center mt-5 rounded-[5px] customBtn-search"
@@ -155,6 +100,11 @@ const Search = () => {
           useSubmitBehavior={true}
           onClick={handleSubmit}
         ></Button>
+      </div>
+
+      <div className="h-[1px] w-full bg-[#0f3c6e] mt-10"></div>
+      <div className="h-[350px] overflow-scroll overflow-x-hidden my-[20px] pb-2">
+        <Descriptions />
       </div>
 
       {currentCode}

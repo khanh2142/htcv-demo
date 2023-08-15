@@ -8,8 +8,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "build:test": "vite build --mode test",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:prod": "copy .env.prod .env && npm run build",
+    "build:test": "copy .env.test .env && npm run build"
   },
   "dependencies": {
     "@types/react-google-recaptcha": "^2.1.5",
